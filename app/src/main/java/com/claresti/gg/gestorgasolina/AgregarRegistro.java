@@ -1,13 +1,14 @@
-package com.example.alanabundis.gestorgasolina;
+package com.claresti.gg.gestorgasolina;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class header_menu extends AppCompatActivity {
+public class AgregarRegistro extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_header_menu);
+        getSupportActionBar().hide();
+        setContentView(R.layout.activity_agregar_registro);
     }
 }

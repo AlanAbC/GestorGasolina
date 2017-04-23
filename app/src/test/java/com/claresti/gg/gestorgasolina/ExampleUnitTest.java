@@ -1,4 +1,4 @@
-package com.example.alanabundis.gestorgasolina;
+package com.claresti.gg.gestorgasolina;
 
 import org.junit.Test;
 

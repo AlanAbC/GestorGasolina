@@ -1,14 +1,14 @@
-package com.example.alanabundis.gestorgasolina;
+package com.claresti.gg.gestorgasolina;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class AgregarRegistro extends AppCompatActivity {
+public class Estadisticas extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        setContentView(R.layout.activity_agregar_registro);
+        setContentView(R.layout.activity_estadisticas);
     }
 }

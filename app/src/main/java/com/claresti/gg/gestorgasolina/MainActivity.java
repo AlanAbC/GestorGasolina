@@ -1,4 +1,4 @@
-package com.example.alanabundis.gestorgasolina;
+package com.claresti.gg.gestorgasolina;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
