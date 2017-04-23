@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="wrap_content"
     android:background="#FFFFFF"
     android:padding="0dp"
     android:orientation="vertical"
@@ -10,11 +10,11 @@
 
     <TextView
         android:layout_width="10dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#000000"
         android:orientation="vertical"
         android:id="@+id/colorGas"
-        android:textSize="70sp"/>
+        android:textSize="50sp"/>
 
     <TextView
         android:layout_width="250dp"
