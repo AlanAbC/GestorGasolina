@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="main">#39734d</color>
+    <color name="estadisticas">#fb9227</color>
+    <color name="agregar_registro">#93a31c</color>
+    <color name="precios">#d6aa26</color>
+    <color name="acerca_de">#FF4081</color>
 </resources>

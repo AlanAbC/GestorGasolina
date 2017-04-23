@@ -9,17 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.claresti.gg.gestorgasolina.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.claresti.gg.gestorgasolina.header_menu" />
-        <activity android:name="com.claresti.gg.gestorgasolina.Precios" />
-        <activity android:name="com.claresti.gg.gestorgasolina.AgregarRegistro" />
-        <activity android:name="com.claresti.gg.gestorgasolina.Estadisticas"></activity>
+        <activity android:name=".header_menu" />
+        <activity android:name=".Precios" />
+        <activity android:name=".AgregarRegistro" />
+        <activity android:name=".Estadisticas" />
+        <activity android:name=".AcercaDe"></activity>
     </application>
 
 </manifest>
