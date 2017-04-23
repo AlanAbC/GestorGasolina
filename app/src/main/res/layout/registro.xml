@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="#FFFFFF"
+    android:padding="0dp"
+    android:orientation="vertical"
+    android:gravity="bottom"
+    android:id="@+id/layout">
+
+    <TextView
+        android:layout_width="10dp"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:orientation="vertical"
+        android:id="@+id/colorGas"
+        android:textSize="50dp"/>
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:layout_marginTop="2dp"
+        android:textColor="#191919"
+        android:id="@+id/fecha"
+        android:paddingLeft="15dp"
+        android:layout_toRightOf="@id/colorGas"
+        android:text="FECHA DE REGISTRO"/>
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:textColor="#191919"
+        android:layout_marginTop="3dp"
+        android:id="@+id/total"
+        android:layout_below="@id/fecha"
+        android:paddingLeft="25dp"
+        android:layout_toRightOf="@id/colorGas"
+        android:text="TOTAL-LITROS" />
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:textColor="#191919"
+        android:layout_marginTop="3dp"
+        android:id="@+id/kilometros"
+        android:layout_below="@id/total"
+        android:paddingLeft="25dp"
+        android:layout_toRightOf="@id/colorGas"
+        android:text="KILOMETROS RECORRIDOS" />
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/edit"
+        android:background="#FFFFFF"
+        android:padding="8dp"
+        android:id="@+id/edit"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/fecha"
+        android:scaleType="centerInside" />
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/borrar"
+        android:background="#FFFFFF"
+        android:padding="8dp"
+        android:id="@+id/borrar"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/edit"
+        android:layout_marginLeft="5dp"
+        android:scaleType="centerInside" />
+
+</RelativeLayout>
