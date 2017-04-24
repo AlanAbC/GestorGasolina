@@ -8,6 +8,7 @@ public class Combustible {
     private String comNombre;
     private float comPrecio;
     private Calendar comFecha;
+    private String comColor;
 
     /**
      * Constructor
@@ -16,11 +17,12 @@ public class Combustible {
      * @param comPrecio
      * @param comFecha
      */
-    public Combustible(int comId, String comNombre, float comPrecio, Calendar comFecha) {
+    public Combustible(int comId, String comNombre, float comPrecio, Calendar comFecha, String comColor) {
         this.comId = comId;
         this.comNombre = comNombre;
         this.comPrecio = comPrecio;
         this.comFecha = comFecha;
+        this.comColor = comColor;
     }
 
     /**
@@ -92,5 +94,21 @@ public class Combustible {
      */
     public void setComFecha(Calendar comFecha) {
         this.comFecha = comFecha;
+    }
+
+    /**
+     * regresa el nombre del color del combustible
+     * @return comColor
+     */
+    public String getComColor() {
+        return comColor;
+    }
+
+    /**
+     * inserta el color de la gasolina
+     * @param comColor
+     */
+    public void setComColor(String comColor) {
+        this.comColor = comColor;
     }
 }
