@@ -1,13 +1,13 @@
 package com.claresti.gg.gestorgasolina;
 
-import java.util.Calendar;
+import java.util.Date;
 
-public class Combustible {
+public class ObjCombustible {
 
     private int comId;
     private String comNombre;
     private float comPrecio;
-    private Calendar comFecha;
+    private Date comFecha;
     private String comColor;
 
     /**
@@ -17,7 +17,7 @@ public class Combustible {
      * @param comPrecio
      * @param comFecha
      */
-    public Combustible(int comId, String comNombre, float comPrecio, Calendar comFecha, String comColor) {
+    public ObjCombustible(int comId, String comNombre, float comPrecio, Date comFecha, String comColor) {
         this.comId = comId;
         this.comNombre = comNombre;
         this.comPrecio = comPrecio;
@@ -28,7 +28,7 @@ public class Combustible {
     /**
      * Constructor vacio
      */
-    public Combustible(){
+    public ObjCombustible(){
 
     }
 
@@ -84,7 +84,7 @@ public class Combustible {
      * regresa la fecha de cuando se registro el combustible
      * @return comFecha
      */
-    public Calendar getComFecha() {
+    public Date getComFecha() {
         return comFecha;
     }
 
@@ -92,7 +92,7 @@ public class Combustible {
      * inserta la fecha de creacion del combustible
      * @param comFecha
      */
-    public void setComFecha(Calendar comFecha) {
+    public void setComFecha(Date comFecha) {
         this.comFecha = comFecha;
     }
 

@@ -1,6 +1,6 @@
 package com.claresti.gg.gestorgasolina;
 
-public class Usuario {
+public class ObjUsuario {
 
     private int usuPrimera;
     private String usuNombre;
@@ -12,7 +12,7 @@ public class Usuario {
      * @param usuNombre
      * @param usuImg
      */
-    public Usuario(int usuPrimera, String usuNombre, String usuImg) {
+    public ObjUsuario(int usuPrimera, String usuNombre, String usuImg) {
         this.usuPrimera = usuPrimera;
         this.usuNombre = usuNombre;
         this.usuImg = usuImg;
@@ -21,7 +21,7 @@ public class Usuario {
     /**
      * Constructor vacio
      */
-    public Usuario(){
+    public ObjUsuario(){
 
     }
 

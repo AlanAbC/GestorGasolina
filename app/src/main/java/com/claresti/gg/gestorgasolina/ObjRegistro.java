@@ -1,11 +1,12 @@
 package com.claresti.gg.gestorgasolina;
 
 import java.util.Calendar;
+import java.util.Date;
 
-public class Registro {
+public class ObjRegistro {
 
-    private Calendar regFecha;
-    private Combustible combustible;
+    private Date regFecha;
+    private ObjCombustible objCombustible;
     private float regKmRecorridos;
     private float regLitros;
     private float regDinero;
@@ -13,14 +14,14 @@ public class Registro {
     /**
      * Constructor
      * @param regFecha
-     * @param combustible
+     * @param objCombustible
      * @param regKmRecorridos
      * @param regLitros
      * @param regDinero
      */
-    public Registro(Calendar regFecha, Combustible combustible, float regKmRecorridos, float regLitros, float regDinero) {
+    public ObjRegistro(Date regFecha, ObjCombustible objCombustible, float regKmRecorridos, float regLitros, float regDinero) {
         this.regFecha = regFecha;
-        this.combustible = combustible;
+        this.objCombustible = objCombustible;
         this.regKmRecorridos = regKmRecorridos;
         this.regLitros = regLitros;
         this.regDinero = regDinero;
@@ -29,7 +30,7 @@ public class Registro {
     /**
      * Constructor vacio
      */
-    public Registro(){
+    public ObjRegistro(){
 
     }
 
@@ -37,7 +38,7 @@ public class Registro {
      * regresa la fecha de creacion del registro
      * @return regFecha
      */
-    public Calendar getRegFecha() {
+    public Date getRegFecha() {
         return regFecha;
     }
 
@@ -45,24 +46,24 @@ public class Registro {
      * inserta la fecha del registro
      * @param regFecha
      */
-    public void setRegFecha(Calendar regFecha) {
+    public void setRegFecha(Date regFecha) {
         this.regFecha = regFecha;
     }
 
     /**
-     * regresa un objeto de tipo combustible
-     * @return combustible
+     * regresa un objeto de tipo objCombustible
+     * @return objCombustible
      */
-    public Combustible getCombustible() {
-        return combustible;
+    public ObjCombustible getObjCombustible() {
+        return objCombustible;
     }
 
     /**
-     * inserta un onjeto de tipó combustible
-     * @param combustible
+     * inserta un onjeto de tipó objCombustible
+     * @param objCombustible
      */
-    public void setCombustible(Combustible combustible) {
-        this.combustible = combustible;
+    public void setObjCombustible(ObjCombustible objCombustible) {
+        this.objCombustible = objCombustible;
     }
 
     /**
