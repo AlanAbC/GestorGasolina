@@ -7,5 +7,9 @@
     <color name="estadisticas">#fb9227</color>
     <color name="agregar_registro">#93a31c</color>
     <color name="precios">#d6aa26</color>
-    <color name="acerca_de">#FF4081</color>
+    <color name="acerca_de">#39734d</color>
+    <color name="magna">#00e787</color>
+    <color name="premium">#f12b45</color>
+    <color name="disel">#000000</color>
+    <color name="gas">#2249ae</color>
 </resources>
