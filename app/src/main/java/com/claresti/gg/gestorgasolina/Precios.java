@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,13 @@ public class Precios extends AppCompatActivity {
     private Menu menu;
     private ImageView btnMenu;
     private NavigationView nav;
-    //Fin menu, declaracion de variables
+    //Variables del layout
+    private ListView precios;
+    private RelativeLayout ventana;
+    //Variable base de datos
+    private AdmBD db;
+    //Variable de combustibles
+    private ArrayList<ObjCombustible> combustibles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +47,31 @@ public class Precios extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.precios));
         }
-        //Fin cambio de color de barra de notificaciones
+        //Iniciacion de la base de datos
+        db = new AdmBD(this);
+        //Inicializacion de variables del layout
+        ventana = (RelativeLayout)findViewById(R.id.contenedor);
         //Menu, Inicia las variables del menu y llama la funcion encargada de su manipulacion
         drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);
         nav = (NavigationView)findViewById(R.id.navigation);
         menu = nav.getMenu();
         menuNav();
-        // Fin menu
+        //llenar el list view
+        precios = (ListView)findViewById(R.id.listaPrecios);
+        llenarPrecios();
     }
 
+    /**
+     * Funcion que llena el list view con los combustibles
+     */
+    private void llenarPrecios(){
+        combustibles = db.selectCombustibles();
+        precios.setAdapter(new AdapterListViewCombustibles(getApplicationContext(),combustibles, ventana));
+    }
+
+    /**
+     * funcion que da funcionalidad al menu
+     */
     private void menuNav(){
         for(int i = 0; i < menu.size(); i++){
             items.add(menu.getItem(i));

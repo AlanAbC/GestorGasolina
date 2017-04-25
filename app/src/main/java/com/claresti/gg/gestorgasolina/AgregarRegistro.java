@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,10 @@ public class AgregarRegistro extends AppCompatActivity {
     private EditText kilometros;
     private EditText litros;
     private EditText dinero;
+    //Base de Datos
+    private AdmBD db;
+    //Variable de combustibles
+    private ArrayList<ObjCombustible> combustibles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,8 @@ public class AgregarRegistro extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.agregar_registro));
         }
+        //Crear objeto base de datos
+        db = new AdmBD(this);
         //Menu, Inicia las variables del menu y llama la funcion encargada de su manipulacion
         drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);
         nav = (NavigationView)findViewById(R.id.navigation);
@@ -60,6 +67,8 @@ public class AgregarRegistro extends AppCompatActivity {
         kilometros = (EditText)findViewById(R.id.kilometrosT);
         litros = (EditText)findViewById(R.id.litrosT);
         dinero = (EditText)findViewById(R.id.dineroT);
+        //llenar el spinner
+        cargarCombustibles();
         //Comprobacion de accion del activity(editar o crear)
         String accion = getIntent().getExtras().getString("accion");
         if(accion.equals("crear")){
@@ -81,6 +90,15 @@ public class AgregarRegistro extends AppCompatActivity {
      */
     private void editarRegistro(){
 
+    }
+
+    /**
+     * funcion la cual llena el espinner de los combusibles
+     */
+    private void cargarCombustibles(){
+        combustibles = db.selectCombustibles();
+        Toast.makeText(getApplicationContext(), "" + combustibles.size(), Toast.LENGTH_SHORT).show();
+        gasolinas.setAdapter(new AdapterSpinnerCombustibles(getApplicationContext(), combustibles));
     }
 
     /**

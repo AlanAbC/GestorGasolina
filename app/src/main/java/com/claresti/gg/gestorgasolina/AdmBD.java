@@ -24,17 +24,17 @@ public class AdmBD extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String tablaUsuario = "CREATE TABLE ObjUsuario(" +
+        String tablaUsuario = "CREATE TABLE Usuario(" +
             "usuPrimera INTEGER NOT NULL PRIMARY KEY," +
             "usuNombre TEXT," +
             "usuImg TEXT" +
             ")";
 
-        String tablaCombustible = "CREATE TABLE ObjCombustible(" +
+        String tablaCombustible = "CREATE TABLE Combustible(" +
             "comId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
             "comNombre TEXT," +
             "comPrecio DECIMAL(10,2)," +
-            "comFecha DATETIME" +
+            "comFecha DATETIME," +
             "comColor TEXT" +
             ")";
 
@@ -49,45 +49,45 @@ public class AdmBD extends SQLiteOpenHelper{
         //Crear tablas
         db.execSQL(tablaUsuario);
         db.execSQL(tablaCombustible);
-        db.execSQL(tablaCombustible);
+        db.execSQL(tablaRegistros);
 
         //ObjUsuario
         ContentValues v = new ContentValues();
         v.put("usuPrimera", "0");
         v.put("usuNombre", "ObjUsuario");
         v.put("usuImg", "imgmenu");
-        db.insert("ObjUsuario", null, v);
+        db.insert("Usuario", null, v);
 
         //ObjCombustible
         Date fechaActual = Calendar.getInstance().getTime();
 
         ContentValues v1 = new ContentValues();
+        v1.put("comFecha", fechaActual.toString());
         v1.put("comNombre", "Magna");
         v1.put("comPrecio", "15.99");
-        v1.put("comFecha", fechaActual.toString());
         v1.put("comColor", "#00e787");
-        db.insert("ObjCombustible", null, v1);
+        db.insert("Combustible", null, v1);
 
         ContentValues v2 = new ContentValues();
         v2.put("comNombre", "Premium");
         v2.put("comPrecio", "17.79");
         v2.put("comFecha", fechaActual.toString());
         v2.put("comColor", "#f12b45");
-        db.insert("ObjCombustible", null, v2);
+        db.insert("Combustible", null, v2);
 
         ContentValues v3 = new ContentValues();
         v3.put("comNombre", "Diésel");
         v3.put("comPrecio", "17.05");
         v3.put("comFecha", fechaActual.toString());
         v3.put("comColor", "#000000");
-        db.insert("ObjCombustible", null, v3);
+        db.insert("Combustible", null, v3);
 
         ContentValues v4 = new ContentValues();
         v4.put("comNombre", "Gas");
         v4.put("comPrecio", "0");
         v4.put("comFecha", fechaActual.toString());
         v4.put("comColor", "#2249ae");
-        db.insert("ObjCombustible", null, v4);
+        db.insert("Combustible", null, v4);
 
     }
 
@@ -158,8 +158,7 @@ public class AdmBD extends SQLiteOpenHelper{
             Cursor cursor = db.query("Combustible", null, null, null, null, null, null);
             ArrayList<ObjCombustible> combustibles = new ArrayList<ObjCombustible>();
             if (cursor.moveToFirst()) {
-                Locale loc = new Locale("es","MX");
-                SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", loc);
+                SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
                 do {
                     ObjCombustible combustible = new ObjCombustible(
                             cursor.getInt(cursor.getColumnIndex("comId")),
@@ -255,8 +254,7 @@ public class AdmBD extends SQLiteOpenHelper{
             Cursor cursor = db.query("Registros", null, null, null, null, null, null);
             ArrayList<ObjRegistro> registros = new ArrayList<ObjRegistro>();
             if (cursor.moveToFirst()) {
-                Locale loc = new Locale("es","MX");
-                SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", loc);
+                SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
                 do {
                     ObjRegistro registro = new ObjRegistro(
                             sdf.parse(cursor.getString(cursor.getColumnIndex("regFecha"))),
