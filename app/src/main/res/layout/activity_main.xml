@@ -106,6 +106,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/menu_principal"
+        app:itemTextColor="#898989"
         app:headerLayout="@layout/header_menu"/>
 
     <RelativeLayout
