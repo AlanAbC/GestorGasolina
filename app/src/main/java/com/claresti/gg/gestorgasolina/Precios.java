@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Precios extends AppCompatActivity {
@@ -107,6 +111,7 @@ public class Precios extends AppCompatActivity {
     }
 
     private void listeners() {
+        //Botones editar
         editarMag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,12 +202,121 @@ public class Precios extends AppCompatActivity {
             }
         });
         //Botones aceptar
+        aceptarMag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ObjCombustible magna = combustibles.get(0);
+                magna.setComPrecio(Float.parseFloat(editMag.getText().toString()));
+                String respuesta = db.updateCombustible(magna);
+                if(respuesta.equals("1")){
+                    llenarPrecios();
+                    editarMag.setVisibility(View.VISIBLE);
+                    cancelarMag.setVisibility(View.GONE);
+                    aceptarMag.setVisibility(View.GONE);
+                    editMag.setVisibility(View.GONE);
+                    editMag.setText(precioMag.getText());
+                    precioMag.setVisibility(View.VISIBLE);
+                    msg("El precio se actializo correctamente");
+                }else{
+                    editarMag.setVisibility(View.VISIBLE);
+                    cancelarMag.setVisibility(View.GONE);
+                    aceptarMag.setVisibility(View.GONE);
+                    editMag.setVisibility(View.GONE);
+                    editMag.setText(precioMag.getText());
+                    precioMag.setVisibility(View.VISIBLE);
+                    msg("Ocurrio un error, intentelo nuevamente");
+                    Log.e("Insertar Magna", respuesta);
+                }
+            }
+        });
+        aceptarPre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ObjCombustible premium = combustibles.get(1);
+                premium.setComPrecio(Float.parseFloat(editPre.getText().toString()));
+                String respuesta = db.updateCombustible(premium);
+                if(respuesta.equals("1")){
+                    llenarPrecios();
+                    editarPre.setVisibility(View.VISIBLE);
+                    cancelarPre.setVisibility(View.GONE);
+                    aceptarPre.setVisibility(View.GONE);
+                    editPre.setVisibility(View.GONE);
+                    editPre.setText(precioPre.getText());
+                    precioPre.setVisibility(View.VISIBLE);
+                    msg("El precio se actializo correctamente");
+                }else{
+                    editarPre.setVisibility(View.VISIBLE);
+                    cancelarPre.setVisibility(View.GONE);
+                    aceptarPre.setVisibility(View.GONE);
+                    editPre.setVisibility(View.GONE);
+                    editPre.setText(precioPre.getText());
+                    precioPre.setVisibility(View.VISIBLE);
+                    msg("Ocurrio un error, intentelo nuevamente");
+                    Log.e("Insertar Magna", respuesta);
+                }
+            }
+        });
+        aceptarDie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ObjCombustible diesel = combustibles.get(2);
+                diesel.setComPrecio(Float.parseFloat(editDie.getText().toString()));
+                String respuesta = db.updateCombustible(diesel);
+                if(respuesta.equals("1")){
+                    llenarPrecios();
+                    editarDie.setVisibility(View.VISIBLE);
+                    cancelarDie.setVisibility(View.GONE);
+                    aceptarDie.setVisibility(View.GONE);
+                    editDie.setVisibility(View.GONE);
+                    editDie.setText(precioDie.getText());
+                    precioDie.setVisibility(View.VISIBLE);
+                    msg("El precio se actializo correctamente");
+                }else{
+                    editarDie.setVisibility(View.VISIBLE);
+                    cancelarDie.setVisibility(View.GONE);
+                    aceptarDie.setVisibility(View.GONE);
+                    editDie.setVisibility(View.GONE);
+                    editDie.setText(precioDie.getText());
+                    precioDie.setVisibility(View.VISIBLE);
+                    msg("Ocurrio un error, intentelo nuevamente");
+                    Log.e("Insertar Magna", respuesta);
+                }
+            }
+        });
+        aceptarGas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ObjCombustible gas = combustibles.get(3);
+                gas.setComPrecio(Float.parseFloat(editGas.getText().toString()));
+                String respuesta = db.updateCombustible(gas);
+                if(respuesta.equals("1")){
+                    llenarPrecios();
+                    editarGas.setVisibility(View.VISIBLE);
+                    cancelarGas.setVisibility(View.GONE);
+                    aceptarGas.setVisibility(View.GONE);
+                    editGas.setVisibility(View.GONE);
+                    editGas.setText(precioGas.getText());
+                    precioGas.setVisibility(View.VISIBLE);
+                    msg("El precio se actializo correctamente");
+                }else{
+                    editarGas.setVisibility(View.VISIBLE);
+                    cancelarGas.setVisibility(View.GONE);
+                    aceptarGas.setVisibility(View.GONE);
+                    editGas.setVisibility(View.GONE);
+                    editGas.setText(precioGas.getText());
+                    precioGas.setVisibility(View.VISIBLE);
+                    msg("Ocurrio un error, intentelo nuevamente");
+                    Log.e("Insertar Magna", respuesta);
+                }
+            }
+        });
     }
 
     /**
      * Funcion que llena el list view con los combustibles
      */
     private void llenarPrecios(){
+        //combustibles.clear();
         combustibles = db.selectCombustibles();
         precioMag.setText(Float.toString(combustibles.get(0).getComPrecio()));
         precioPre.setText(Float.toString(combustibles.get(1).getComPrecio()));
@@ -252,6 +366,17 @@ public class Precios extends AppCompatActivity {
                 drawerLayout.openDrawer(nav);
             }
         });
+    }
+
+    /**
+     * Funcion que regresa el numero de la semana del año de una fecha
+     * @param d
+     * @return INT numro de la semana del año
+     */
+    public static int getDayOfTheWeek(Date d){
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(d);
+        return cal.get(Calendar.WEEK_OF_YEAR);
     }
 
     /**
