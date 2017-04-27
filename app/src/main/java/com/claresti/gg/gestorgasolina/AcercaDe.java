@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,8 @@ public class AcercaDe extends AppCompatActivity {
     private ImageView btnMenu;
     private NavigationView nav;
     //Fin menu, declaracion de variables
+    //Variable de base de datos
+    private AdmBD db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,14 @@ public class AcercaDe extends AppCompatActivity {
         menu = nav.getMenu();
         menuNav();
         // Fin menu
+        //Codigo para crear el objeto de la base de datos y
+        //agregar el nombre de usuario al menu
+        db = new AdmBD(this);
+        ObjUsuario usuario = db.selectUsuario();
+        //Codigo para poner en el Menu el nombre de usuario
+        View header = nav.getHeaderView(0);
+        TextView nombreUsuario = (TextView) header.findViewById(R.id.menuNombreUsuario);
+        nombreUsuario.setText(usuario.getUsuNombre());
     }
 
     private void menuNav(){
@@ -78,6 +89,17 @@ public class AcercaDe extends AppCompatActivity {
                 drawerLayout.closeDrawer(nav);
                 item.setChecked(false);
                 return false;
+            }
+        });
+        //Bloque de codigo que da funcionalidad al boton de editar del header del menu
+        View headerview = nav.getHeaderView(0);
+        ImageView editar = (ImageView)headerview.findViewById(R.id.editar);
+        editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(AcercaDe.this, editar_menu.class);
+                startActivity(i);
+                finish();
             }
         });
         btnMenu = (ImageView)findViewById(R.id.Btnmenu);

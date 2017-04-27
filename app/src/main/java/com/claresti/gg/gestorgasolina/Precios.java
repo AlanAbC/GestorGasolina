@@ -104,6 +104,12 @@ public class Precios extends AppCompatActivity {
         nav = (NavigationView)findViewById(R.id.navigation);
         menu = nav.getMenu();
         menuNav();
+        //Codigo para agregar el nombre de usuario al menu
+        ObjUsuario usuario = db.selectUsuario();
+        //Codigo para poner en el Menu el nombre de usuario
+        View header = nav.getHeaderView(0);
+        TextView nombreUsuario = (TextView) header.findViewById(R.id.menuNombreUsuario);
+        nombreUsuario.setText(usuario.getUsuNombre());
         //llenar el list view
         llenarPrecios();
         //Funciones a los botones
@@ -297,7 +303,7 @@ public class Precios extends AppCompatActivity {
                     editGas.setVisibility(View.GONE);
                     editGas.setText(precioGas.getText());
                     precioGas.setVisibility(View.VISIBLE);
-                    msg("El precio se actializo correctamente");
+                    msg("El precio se actualizo correctamente");
                 }else{
                     editarGas.setVisibility(View.VISIBLE);
                     cancelarGas.setVisibility(View.GONE);
@@ -358,6 +364,17 @@ public class Precios extends AppCompatActivity {
                 drawerLayout.closeDrawer(nav);
                 item.setChecked(false);
                 return false;
+            }
+        });
+        //Bloque de codigo que da funcionalidad al boton de editar del header del menu
+        View headerview = nav.getHeaderView(0);
+        ImageView editar = (ImageView)headerview.findViewById(R.id.editar);
+        editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Precios.this, editar_menu.class);
+                startActivity(i);
+                finish();
             }
         });
         btnMenu = (ImageView)findViewById(R.id.Btnmenu);

@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.ParsePosition;
@@ -66,14 +67,20 @@ public class AgregarRegistro extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.agregar_registro));
         }
-        //Crear objeto base de datos
-        db = new AdmBD(this);
         //Menu, Inicia las variables del menu y llama la funcion encargada de su manipulacion
         drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);
         nav = (NavigationView)findViewById(R.id.navigation);
         menu = nav.getMenu();
         //Llamando metodo para dar funcionalidad al menu
         menuNav();
+        //Crear objeto base de datos
+        db = new AdmBD(this);
+        //Codigo para agregar el nombre de usuario al menu
+        ObjUsuario usuario = db.selectUsuario();
+        //Codigo para poner en el Menu el nombre de usuario
+        View header = nav.getHeaderView(0);
+        TextView nombreUsuario = (TextView) header.findViewById(R.id.menuNombreUsuario);
+        nombreUsuario.setText(usuario.getUsuNombre());
         //Asignacion de variables del layout
         fecha = (DatePicker)findViewById(R.id.fechaS);
         gasolinas = (Spinner)findViewById(R.id.tipoS);
@@ -192,6 +199,17 @@ public class AgregarRegistro extends AppCompatActivity {
                 drawerLayout.closeDrawer(nav);
                 item.setChecked(false);
                 return false;
+            }
+        });
+        //Bloque de codigo que da funcionalidad al boton de editar del header del menu
+        View headerview = nav.getHeaderView(0);
+        ImageView editar = (ImageView)headerview.findViewById(R.id.editar);
+        editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(AgregarRegistro.this, editar_menu.class);
+                startActivity(i);
+                finish();
             }
         });
         btnMenu = (ImageView)findViewById(R.id.Btnmenu);

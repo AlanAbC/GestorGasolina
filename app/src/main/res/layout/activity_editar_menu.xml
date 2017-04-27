@@ -22,6 +22,7 @@
                 android:layout_height="match_parent"
                 android:padding="0dp"
                 tools:context="com.claresti.mistareas.gestordetareas.agregarTarea">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
@@ -39,6 +40,7 @@
                         android:layout_marginLeft="10dp"
                         android:src="@drawable/menu"
                         android:id="@+id/Btnmenu" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -50,6 +52,7 @@
                         android:layout_marginLeft="20dp"/>
 
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:id="@+id/editarUsuario"
@@ -61,6 +64,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="25dp">
+
                         <EditText
                             android:layout_width="match_parent"
                             android:id="@+id/nombreT"
@@ -68,11 +72,13 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:layout_height="wrap_content"
-                            android:hint="Este hint se llenara con el nombre actual"
+                            android:hint="Nombre"
                             android:textSize="21sp"
                             android:paddingLeft="20dp"
                             android:paddingRight="20dp"/>
+
                     </android.support.design.widget.TextInputLayout>
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="192dp"
@@ -82,6 +88,7 @@
                         android:layout_below="@id/input_layout_nombre"
                         android:layout_marginTop="25dp"
                         android:background="#a0a0a0"/>
+
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
@@ -92,9 +99,12 @@
                         android:layout_marginLeft="180dp"
                         android:layout_marginRight="40dp"
                         android:background="#93a31c"
-                        android:textColor="#FFFFFF"/>
+                        android:textColor="#FFFFFF"
+                        android:id="@+id/btn_img"/>
+
                 </RelativeLayout>
             </RelativeLayout>
+
         </ScrollView>
 
         <android.support.design.widget.FloatingActionButton
@@ -104,7 +114,7 @@
             app:backgroundTint="#93a31c"
             android:src="@drawable/agregar"
             app:fabSize="normal"
-            android:onClick="agregarTarea"
+            android:onClick="actualizar"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -112,7 +122,9 @@
             android:layout_marginBottom="15dp"
             android:layout_marginRight="15dp"
             app:elevation="2dp"/>
+
     </RelativeLayout>
+
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation"
         android:layout_width="wrap_content"
@@ -121,5 +133,6 @@
         app:menu="@menu/menu_principal"
         app:itemTextColor="#898989"
         app:headerLayout="@layout/header_menu"/>
+
 </android.support.v4.widget.DrawerLayout>
 

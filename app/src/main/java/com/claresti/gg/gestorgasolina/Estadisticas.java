@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,8 @@ public class Estadisticas extends AppCompatActivity {
     private Menu menu;
     private ImageView btnMenu;
     private NavigationView nav;
-    //Fin menu, declaracion de variables
+    //Variable base de datos
+    private AdmBD db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,14 @@ public class Estadisticas extends AppCompatActivity {
         menu = nav.getMenu();
         menuNav();
         // Fin menu
+        //Iniciacion de la base de datos
+        db = new AdmBD(this);
+        //Codigo para agregar el nombre de usuario al menu
+        ObjUsuario usuario = db.selectUsuario();
+        //Codigo para poner en el Menu el nombre de usuario
+        View header = nav.getHeaderView(0);
+        TextView nombreUsuario = (TextView) header.findViewById(R.id.menuNombreUsuario);
+        nombreUsuario.setText(usuario.getUsuNombre());
     }
 
     private void menuNav(){
@@ -78,6 +88,17 @@ public class Estadisticas extends AppCompatActivity {
                 drawerLayout.closeDrawer(nav);
                 item.setChecked(false);
                 return false;
+            }
+        });
+        //Bloque de codigo que da funcionalidad al boton de editar del header del menu
+        View headerview = nav.getHeaderView(0);
+        ImageView editar = (ImageView)headerview.findViewById(R.id.editar);
+        editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Estadisticas.this, editar_menu.class);
+                startActivity(i);
+                finish();
             }
         });
         btnMenu = (ImageView)findViewById(R.id.Btnmenu);

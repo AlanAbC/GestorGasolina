@@ -15,9 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +63,41 @@ public class MainActivity extends AppCompatActivity {
         listaRegistros = (ListView)findViewById(R.id.listaRegistros);
         //Creacion objeto de la base de datos
         db = new AdmBD(this);
+        //Creacion del objeto usuario y comprobacion de primera ves o no en el sistemaa
+        //cambia el nombre de la base de datos y el valor de usuPrimera a 1 en caso de que sea la primera vez
+        //en caso contrario solo agrega nombre del usuario al menu y carga las tareas
+        ObjUsuario usuario = db.selectUsuario();
+        if(usuario.getUsuPrimera() == 0){
+            //Creacion de la ventana de inicio
+            final RelativeLayout inicio = (RelativeLayout)findViewById(R.id.lPrimeraVez);
+            inicio.setVisibility(View.VISIBLE);
+            Button actualizar = (Button)findViewById(R.id.actualizarUsuario);
+            actualizar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ObjUsuario usuarioActualizar = new ObjUsuario();
+                    EditText usuNombre = (EditText)findViewById(R.id.nombreUsuario);
+                    String nombre = usuNombre.getText().toString();
+                    usuarioActualizar.setUsuNombre(nombre);
+                    String respuesta = db.updateUsuario(usuarioActualizar);
+                    if(respuesta.equals("1")){
+                        msg("Se a registrado correctamente");
+                        inicio.setVisibility(View.GONE);
+                        View header = nav.getHeaderView(0);
+                        TextView nombreUsuario = (TextView) header.findViewById(R.id.menuNombreUsuario);
+                        nombreUsuario.setText(nombre);
+                    }else{
+                        msg("Ocurrio un error, intente nuevamente");
+                    }
+                }
+            });
+        }else {
+            //Codigo para poner en el Menu el nombre de usuario
+            View header = nav.getHeaderView(0);
+            TextView nombreUsuario = (TextView) header.findViewById(R.id.menuNombreUsuario);
+            nombreUsuario.setText(usuario.getUsuNombre());
+            //Fin Codigo para poner el nombre de usuario en el menu
+        }
         //Llenar registros
         llenarRegistros();
         //Verificacion para mostrar mensajes
@@ -115,6 +153,17 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.closeDrawer(nav);
                 item.setChecked(false);
                 return false;
+            }
+        });
+        //Bloque de codigo que da funcionalidad al boton de editar del header del menu
+        View headerview = nav.getHeaderView(0);
+        ImageView editar = (ImageView)headerview.findViewById(R.id.editar);
+        editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, editar_menu.class);
+                startActivity(i);
+                finish();
             }
         });
         btnMenu = (ImageView)findViewById(R.id.Btnmenu);
