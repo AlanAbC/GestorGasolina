@@ -40,12 +40,383 @@
 
         </RelativeLayout>
 
-        <ListView
-            android:id="@+id/listaPrecios"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="52dp"
-            android:layout_below="@id/menu"/>
+            android:background="#FFFFFF"
+            android:padding="0dp"
+            android:layout_below="@id/menu"
+            android:orientation="vertical"
+            android:gravity="bottom"
+            android:id="@+id/l_magna">
+
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="65dp"
+                android:background="@color/magna"
+                android:textSize="50sp"
+                android:id="@+id/colorGasMag"/>
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_marginTop="2dp"
+                android:id="@+id/tipoGasMag"
+                android:paddingLeft="15dp"
+                android:textColor="#191919"
+                android:layout_toRightOf="@id/colorGasMag"
+                android:text="Magna" />
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:id="@+id/precioMag"
+                android:textColor="#191919"
+                android:paddingLeft="25dp"
+                android:text="PRECIO GASOLINA"
+                android:layout_below="@+id/tipoGasMag"
+                android:layout_toEndOf="@+id/colorGasMag" />
+
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/edit"
+                android:background="#FFFFFF"
+                android:padding="8dp"
+                android:id="@+id/editarMag"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/tipoGasMag"
+                android:scaleType="centerInside"/>
+
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginTop="3dp"
+                android:inputType="numberDecimal"
+                android:id="@+id/precioTMag"
+                android:textColor="#191919"
+                android:layout_below="@id/tipoGasMag"
+                android:paddingLeft="25dp"
+                android:layout_toRightOf="@id/colorGasMag"
+                android:visibility="gone"/>
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/agregar"
+                android:background="#000"
+                android:padding="8dp"
+                android:id="@+id/aceptarMag"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="-10dp"
+                android:layout_toRightOf="@id/tipoGasMag"
+                android:scaleType="centerInside"
+                android:visibility="gone"/>
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/borrar"
+                android:background="#000"
+                android:padding="8dp"
+                android:id="@+id/cancelarMag"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="40dp"
+                android:layout_toRightOf="@id/tipoGasMag"
+                android:scaleType="centerInside"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:padding="0dp"
+            android:layout_below="@id/l_magna"
+            android:orientation="vertical"
+            android:id="@+id/l_premium"
+            android:gravity="bottom">
+
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="65dp"
+                android:background="@color/premium"
+                android:textSize="50sp"
+                android:id="@+id/colorGasPre"/>
+
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginTop="2dp"
+                android:id="@+id/tipoGasPre"
+                android:paddingLeft="15dp"
+                android:textColor="#191919"
+                android:layout_toRightOf="@id/colorGasPre"
+                android:text="Premium" />
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_marginTop="3dp"
+                android:id="@+id/precioPre"
+                android:textColor="#191919"
+                android:layout_below="@id/tipoGasPre"
+                android:paddingLeft="25dp"
+                android:layout_toRightOf="@id/colorGasPre"
+                android:text="PRECIO GASOLINA"/>
+
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/edit"
+                android:background="#FFFFFF"
+                android:padding="8dp"
+                android:id="@+id/editarPre"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/tipoGasPre"
+                android:scaleType="centerInside"/>
+
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_marginTop="3dp"
+                android:inputType="numberDecimal"
+                android:id="@+id/precioTPre"
+                android:textColor="#191919"
+                android:layout_below="@id/tipoGasPre"
+                android:paddingLeft="25dp"
+                android:layout_toRightOf="@id/colorGasPre"
+                android:visibility="gone"/>
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/agregar"
+                android:background="#000"
+                android:padding="8dp"
+                android:id="@+id/aceptarPre"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="-10dp"
+                android:layout_toRightOf="@id/tipoGasPre"
+                android:scaleType="centerInside"
+                android:visibility="gone"/>
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/borrar"
+                android:background="#000"
+                android:padding="8dp"
+                android:id="@+id/cancelarPre"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="40dp"
+                android:layout_toRightOf="@id/tipoGasPre"
+                android:scaleType="centerInside"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:padding="0dp"
+            android:orientation="vertical"
+            android:gravity="bottom"
+            android:layout_below="@id/l_premium"
+            android:id="@+id/l_diesel">
+
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="65dp"
+                android:background="@color/disel"
+                android:textSize="50dp"
+                android:id="@+id/colorGasDi"/>
+
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginTop="2dp"
+                android:id="@+id/tipoGasDi"
+                android:paddingLeft="15dp"
+                android:textColor="#191919"
+                android:layout_toRightOf="@id/colorGasDi"
+                android:text="Diésel" />
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_marginTop="3dp"
+                android:id="@+id/precioDi"
+                android:textColor="#191919"
+                android:layout_below="@id/tipoGasDi"
+                android:paddingLeft="25dp"
+                android:layout_toRightOf="@id/colorGasDi"
+                android:text="PRECIO GASOLINA"/>
+
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/edit"
+                android:background="#FFFFFF"
+                android:padding="8dp"
+                android:id="@+id/editarDi"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/tipoGasDi"
+                android:scaleType="centerInside"/>
+
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_marginTop="3dp"
+                android:inputType="numberDecimal"
+                android:id="@+id/precioTDi"
+                android:textColor="#191919"
+                android:layout_below="@id/tipoGasDi"
+                android:paddingLeft="25dp"
+                android:layout_toRightOf="@id/colorGasDi"
+                android:visibility="gone"/>
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/agregar"
+                android:background="#000"
+                android:padding="8dp"
+                android:id="@+id/aceptarDi"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="-10dp"
+                android:layout_toRightOf="@id/tipoGasDi"
+                android:scaleType="centerInside"
+                android:visibility="gone"/>
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/borrar"
+                android:background="#000"
+                android:padding="8dp"
+                android:id="@+id/cancelarDi"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="40dp"
+                android:layout_toRightOf="@id/tipoGasDi"
+                android:scaleType="centerInside"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:padding="0dp"
+            android:orientation="vertical"
+            android:gravity="bottom"
+            android:layout_below="@id/l_diesel"
+            android:id="@+id/l_gas">
+
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="65dp"
+                android:background="@color/gas"
+                android:textSize="50dp"
+                android:id="@+id/colorGasGas"/>
+
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:layout_marginTop="2dp"
+                android:id="@+id/tipoGasGas"
+                android:paddingLeft="15dp"
+                android:textColor="#191919"
+                android:layout_toRightOf="@id/colorGasGas"
+                android:text="Gas" />
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_marginTop="3dp"
+                android:id="@+id/precioGas"
+                android:textColor="#191919"
+                android:layout_below="@id/tipoGasGas"
+                android:paddingLeft="25dp"
+                android:layout_toRightOf="@id/colorGasGas"
+                android:text="PRECIO GASOLINA"/>
+
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/edit"
+                android:background="#FFFFFF"
+                android:padding="8dp"
+                android:id="@+id/editarGas"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/tipoGasGas"
+                android:scaleType="centerInside"/>
+
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_marginTop="3dp"
+                android:inputType="numberDecimal"
+                android:id="@+id/precioTGas"
+                android:textColor="#191919"
+                android:layout_below="@id/tipoGasGas"
+                android:paddingLeft="25dp"
+                android:layout_toRightOf="@id/colorGasGas"
+                android:visibility="gone"/>
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/agregar"
+                android:background="#000"
+                android:padding="8dp"
+                android:id="@+id/aceptarGas"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="-10dp"
+                android:layout_toRightOf="@id/tipoGasGas"
+                android:scaleType="centerInside"
+                android:visibility="gone"/>
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/borrar"
+                android:background="#000"
+                android:padding="8dp"
+                android:id="@+id/cancelarGas"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="40dp"
+                android:layout_toRightOf="@id/tipoGasGas"
+                android:scaleType="centerInside"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
 
         <LinearLayout
             xmlns:ads="http://schemas.android.com/apk/res-auto"

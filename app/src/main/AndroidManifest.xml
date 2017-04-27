@@ -21,7 +21,7 @@
         <activity android:name=".AgregarRegistro" />
         <activity android:name=".Estadisticas" />
         <activity android:name=".AcercaDe" />
-        <activity android:name="com.clares.gg.gestorgasolina.editar_menu"></activity>
+        <activity android:name=".editar_menu"></activity>
     </application>
 
 </manifest>
