@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class ObjRegistro {
 
+    private int regId;
     private Date regFecha;
     private ObjCombustible objCombustible;
     private float regKmRecorridos;
@@ -19,7 +20,8 @@ public class ObjRegistro {
      * @param regLitros
      * @param regDinero
      */
-    public ObjRegistro(Date regFecha, ObjCombustible objCombustible, float regKmRecorridos, float regLitros, float regDinero) {
+    public ObjRegistro(int regId, Date regFecha, ObjCombustible objCombustible, float regKmRecorridos, float regLitros, float regDinero) {
+        this.regId = regId;
         this.regFecha = regFecha;
         this.objCombustible = objCombustible;
         this.regKmRecorridos = regKmRecorridos;
@@ -32,6 +34,14 @@ public class ObjRegistro {
      */
     public ObjRegistro(){
 
+    }
+
+    public int getRegId() {
+        return regId;
+    }
+
+    public void setRegId(int regId) {
+        this.regId = regId;
     }
 
     /**

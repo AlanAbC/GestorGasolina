@@ -39,7 +39,8 @@ public class AdmBD extends SQLiteOpenHelper{
             ")";
 
         String tablaRegistros = "CREATE TABLE Registros(" +
-            "regFecha DATETIME NOT NULL PRIMARY KEY," +
+            "regId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+            "regFecha DATETIME," +
             "comId INTEGER NOT NULL," +
             "regKmRecorridos DECIMAL(10,1)," +
             "regLitros DECIMAL(10,3)," +
@@ -256,6 +257,7 @@ public class AdmBD extends SQLiteOpenHelper{
                 SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
                 do {
                     ObjRegistro registro = new ObjRegistro(
+                            cursor.getInt(cursor.getColumnIndex("regId")),
                             sdf.parse(cursor.getString(cursor.getColumnIndex("regFecha"))),
                             findById(cursor.getInt(cursor.getColumnIndex("comId"))),
                             cursor.getFloat(cursor.getColumnIndex("regKmRecorridos")),

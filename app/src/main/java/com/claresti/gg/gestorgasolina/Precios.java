@@ -316,12 +316,13 @@ public class Precios extends AppCompatActivity {
      * Funcion que llena el list view con los combustibles
      */
     private void llenarPrecios(){
-        //combustibles.clear();
         combustibles = db.selectCombustibles();
-        precioMag.setText(Float.toString(combustibles.get(0).getComPrecio()));
-        precioPre.setText(Float.toString(combustibles.get(1).getComPrecio()));
-        precioDie.setText(Float.toString(combustibles.get(2).getComPrecio()));
-        precioGas.setText(Float.toString(combustibles.get(3).getComPrecio()));
+        if(combustibles.size() > 0) {
+            precioMag.setText("" + combustibles.get(0).getComPrecio() + "");
+            precioPre.setText("" + combustibles.get(1).getComPrecio() + "");
+            precioDie.setText("" + combustibles.get(2).getComPrecio() + "");
+            precioGas.setText("" + combustibles.get(3).getComPrecio() + "");
+        }
     }
 
     /**

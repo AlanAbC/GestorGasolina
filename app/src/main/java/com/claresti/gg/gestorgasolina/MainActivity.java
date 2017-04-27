@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void llenarRegistros() {
         registros = db.selectRegistros();
-        msg("" + registros.size());
         listaRegistros.setAdapter(new AdapterListViewRegistros(getApplicationContext(), registros));
     }
 
