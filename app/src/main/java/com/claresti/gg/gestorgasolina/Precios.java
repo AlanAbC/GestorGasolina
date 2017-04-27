@@ -325,7 +325,7 @@ public class Precios extends AppCompatActivity {
     }
 
     /**
-     * funcion que da funcionalidad al menu
+     * Funcion que da funcionalidad al menu
      */
     private void menuNav(){
         for(int i = 0; i < menu.size(); i++){
