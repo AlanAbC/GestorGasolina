@@ -3,6 +3,7 @@ package com.claresti.gg.gestorgasolina;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -151,7 +152,50 @@ public class Precios extends AppCompatActivity {
             }
         });
         //Botones cancelar
-
+        cancelarMag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editarMag.setVisibility(View.VISIBLE);
+                cancelarMag.setVisibility(View.GONE);
+                aceptarMag.setVisibility(View.GONE);
+                editMag.setVisibility(View.GONE);
+                editMag.setText(precioMag.getText());
+                precioMag.setVisibility(View.VISIBLE);
+            }
+        });
+        cancelarPre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editarPre.setVisibility(View.VISIBLE);
+                cancelarPre.setVisibility(View.GONE);
+                aceptarPre.setVisibility(View.GONE);
+                editPre.setVisibility(View.GONE);
+                editPre.setText(precioPre.getText());
+                precioPre.setVisibility(View.VISIBLE);
+            }
+        });
+        cancelarDie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editarDie.setVisibility(View.VISIBLE);
+                cancelarDie.setVisibility(View.GONE);
+                aceptarDie.setVisibility(View.GONE);
+                editDie.setVisibility(View.GONE);
+                editDie.setText(precioDie.getText());
+                precioDie.setVisibility(View.VISIBLE);
+            }
+        });
+        cancelarGas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editarGas.setVisibility(View.VISIBLE);
+                cancelarGas.setVisibility(View.GONE);
+                aceptarGas.setVisibility(View.GONE);
+                editGas.setVisibility(View.GONE);
+                editGas.setText(precioGas.getText());
+                precioGas.setVisibility(View.VISIBLE);
+            }
+        });
         //Botones aceptar
     }
 
