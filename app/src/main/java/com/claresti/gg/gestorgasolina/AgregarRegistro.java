@@ -93,19 +93,7 @@ public class AgregarRegistro extends AppCompatActivity {
         ventana = (RelativeLayout)findViewById(R.id.l_ventana);
         //llenar el spinner
         cargarCombustibles();
-        //Comprobacion de accion del activity(editar o crear)
-        String accion = getIntent().getExtras().getString("accion");
-        if(accion.equals("crear")){
-            crearRegistro();
-        }else{
-            editarRegistro();
-        }
-    }
-
-    /**
-     * funcion para crear registros
-     */
-    private void crearRegistro(){
+        //Asignacion de listeners
         litros.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -140,6 +128,19 @@ public class AgregarRegistro extends AppCompatActivity {
 
             }
         });
+        //Comprobacion de accion del activity(editar o crear)
+        String accion = getIntent().getExtras().getString("accion");
+        if(accion.equals("crear")){
+            crearRegistro();
+        }else{
+            editarRegistro();
+        }
+    }
+
+    /**
+     * funcion para crear registros
+     */
+    private void crearRegistro(){
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
