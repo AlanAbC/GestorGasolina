@@ -69,6 +69,7 @@ public class editar_menu extends AppCompatActivity {
         selectImg = (Button)findViewById(R.id.btn_img);
         //Insercion de nombre actual e imagen actual
         nombre.setHint(usuario.getUsuNombre());
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     public void actualizar(View v){

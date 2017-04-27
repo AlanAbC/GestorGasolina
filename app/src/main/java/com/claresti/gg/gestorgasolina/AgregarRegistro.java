@@ -10,6 +10,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -104,6 +106,40 @@ public class AgregarRegistro extends AppCompatActivity {
      * funcion para crear registros
      */
     private void crearRegistro(){
+        litros.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(!litros.getText().toString().equals("")){
+                        float li = Float.parseFloat(litros.getText().toString());
+                        float di = li * combustibles.get(comSeleccionada).getComPrecio();
+                        String din = Float.toString(di);
+                        dinero.setText(din);
+                    }
+                }
+            }
+        });
+        dinero.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!dinero.getText().toString().equals("")){
+                    float di = Float.parseFloat(dinero.getText().toString());
+                    float li = di / combustibles.get(comSeleccionada).getComPrecio();
+                    String lit = Float.toString(li);
+                    litros.setText(lit);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,7 +193,17 @@ public class AgregarRegistro extends AppCompatActivity {
         gasolinas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                comSeleccionada = position;
+                float li;
+                float di;
+                if(!litros.getText().toString().equals("") && !dinero.getText().toString().equals("")){
+                    comSeleccionada = position;
+                    li = Float.parseFloat(litros.getText().toString());
+                    di = li * combustibles.get(comSeleccionada).getComPrecio();
+                    String din = Float.toString(di);
+                    dinero.setText(din);
+                }else{
+                    comSeleccionada = position;
+                }
             }
 
             @Override

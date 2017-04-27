@@ -55,7 +55,7 @@ public class AdapterListViewRegistros extends BaseAdapter{
         color.setBackgroundColor(Color.parseColor(registros.get(position).getObjCombustible().getComColor()));
         fecha.setText(convertFecha(registros.get(position).getRegFecha()));
         dineroLitros.setText("$" + registros.get(position).getRegDinero() + " - " + registros.get(position).getRegLitros() + " lts.");
-        kmRecorridos.setText("" + registros.get(position).getRegKmRecorridos() + "");
+        kmRecorridos.setText("" + registros.get(position).getRegKmRecorridos() + " kilometros recorridos");
         return convertView;
     }
 

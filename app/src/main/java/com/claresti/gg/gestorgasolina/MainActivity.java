@@ -163,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, editar_menu.class);
                 startActivity(i);
-                finish();
             }
         });
         btnMenu = (ImageView)findViewById(R.id.Btnmenu);
