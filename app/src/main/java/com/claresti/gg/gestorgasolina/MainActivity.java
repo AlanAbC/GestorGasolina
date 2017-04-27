@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -29,8 +30,13 @@ public class MainActivity extends AppCompatActivity {
     private Menu menu;
     private ImageView btnMenu;
     private NavigationView nav;
+    //variable de base de datos
+    private AdmBD db;
     //Variebles del layout
     private RelativeLayout ventana;
+    private ListView listaRegistros;
+    //Variables de objetos
+    private ArrayList<ObjRegistro> registros;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
         menuNav();
         //Asignacion de variables del layout
         ventana = (RelativeLayout)findViewById(R.id.l_ventana);
+        listaRegistros = (ListView)findViewById(R.id.listaRegistros);
+        //Creacion objeto de la base de datos
+        db = new AdmBD(this);
+        //Llenar registros
+        llenarRegistros();
         //Verificacion para mostrar mensajes
         Intent i = getIntent();
         Bundle extras = i.getExtras();
@@ -60,6 +71,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private void llenarRegistros() {
+        registros = db.selectRegistros();
+        msg("" + registros.size());
+        listaRegistros.setAdapter(new AdapterListViewRegistros(getApplicationContext(), registros));
     }
 
     public void agregarRegistro(View v){

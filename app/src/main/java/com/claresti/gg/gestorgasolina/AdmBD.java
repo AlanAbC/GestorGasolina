@@ -187,8 +187,7 @@ public class AdmBD extends SQLiteOpenHelper{
             Cursor cursor = db.query("Combustible", null, "comId = " + id, null, null, null, null);
             ObjCombustible combustible = new ObjCombustible();
             if (cursor.moveToFirst()) {
-                Locale loc = new Locale("es","MX");
-                SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", loc);
+                SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
                 combustible.setComId(cursor.getInt(cursor.getColumnIndex("comId")));
                 combustible.setComNombre(cursor.getString(cursor.getColumnIndex("comNombre")));
                 combustible.setComPrecio(cursor.getFloat(cursor.getColumnIndex("comPrecio")));
@@ -258,7 +257,7 @@ public class AdmBD extends SQLiteOpenHelper{
                 do {
                     ObjRegistro registro = new ObjRegistro(
                             sdf.parse(cursor.getString(cursor.getColumnIndex("regFecha"))),
-                            findById(cursor.getInt(cursor.getColumnIndex("comNombre"))),
+                            findById(cursor.getInt(cursor.getColumnIndex("comId"))),
                             cursor.getFloat(cursor.getColumnIndex("regKmRecorridos")),
                             cursor.getFloat(cursor.getColumnIndex("regLitros")),
                             cursor.getFloat(cursor.getColumnIndex("regDinero")));
