@@ -108,7 +108,7 @@
             <ImageButton
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/agregarGris"
+                android:src="@drawable/agregargris"
                 android:background="#ffffff"
                 android:padding="8dp"
                 android:id="@+id/aceptarMag"
@@ -203,7 +203,7 @@
             <ImageButton
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/agregarGris"
+                android:src="@drawable/agregargris"
                 android:background="#FFFFFF"
                 android:padding="8dp"
                 android:id="@+id/aceptarPre"
@@ -298,7 +298,7 @@
             <ImageButton
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/agregarGris"
+                android:src="@drawable/agregargris"
                 android:background="#FFFFFF"
                 android:padding="8dp"
                 android:id="@+id/aceptarDi"
@@ -393,7 +393,7 @@
             <ImageButton
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/agregarGris"
+                android:src="@drawable/agregargris"
                 android:background="#FFFFFF"
                 android:padding="8dp"
                 android:id="@+id/aceptarGas"
