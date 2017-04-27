@@ -140,7 +140,7 @@ public class AdmBD extends SQLiteOpenHelper{
         try{
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues v = new ContentValues();
-            v.put("cpmPrecio", combustible.getComPrecio());
+            v.put("comPrecio", combustible.getComPrecio());
             db.update("Combustible", v, "comId = " + combustible.getComId(), null);
             return "1";
         }catch(Exception e){
