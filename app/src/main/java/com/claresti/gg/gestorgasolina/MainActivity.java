@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private Menu menu;
     private ImageView btnMenu;
     private NavigationView nav;
-    //Fin menu, declaracion de variables
+    //Variebles del layout
+    private RelativeLayout ventana;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,16 @@ public class MainActivity extends AppCompatActivity {
         nav = (NavigationView)findViewById(R.id.navigation);
         menu = nav.getMenu();
         menuNav();
-        // Fin menu
+        //Asignacion de variables del layout
+        ventana = (RelativeLayout)findViewById(R.id.l_ventana);
+        //Verificacion para mostrar mensajes
+        Intent i = getIntent();
+        Bundle extras = i.getExtras();
+        if(extras != null){
+            if (extras.containsKey("msg")) {
+                msg(getIntent().getExtras().getString("msg"));
+            }
+        }
 
     }
 
@@ -86,5 +98,18 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.openDrawer(nav);
             }
         });
+    }
+
+    /**
+     * Funcion para crear un mensaje en pantalla
+     * @param msg
+     */
+    public void msg(String msg){
+        Snackbar.make(ventana, msg, Snackbar.LENGTH_LONG).setAction("Aceptar", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        }).show();
     }
 }

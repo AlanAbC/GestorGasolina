@@ -3,24 +3,33 @@ package com.claresti.gg.gestorgasolina;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class AgregarRegistro extends AppCompatActivity {
 
@@ -36,10 +45,14 @@ public class AgregarRegistro extends AppCompatActivity {
     private EditText kilometros;
     private EditText litros;
     private EditText dinero;
+    private FloatingActionButton aceptar;
+    private RelativeLayout ventana;
     //Base de Datos
     private AdmBD db;
     //Variable de combustibles
     private ArrayList<ObjCombustible> combustibles;
+    //Variables de banderas
+    private int comSeleccionada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +80,8 @@ public class AgregarRegistro extends AppCompatActivity {
         kilometros = (EditText)findViewById(R.id.kilometrosT);
         litros = (EditText)findViewById(R.id.litrosT);
         dinero = (EditText)findViewById(R.id.dineroT);
+        aceptar = (FloatingActionButton)findViewById(R.id.agregar);
+        ventana = (RelativeLayout)findViewById(R.id.l_ventana);
         //llenar el spinner
         cargarCombustibles();
         //Comprobacion de accion del activity(editar o crear)
@@ -82,7 +97,41 @@ public class AgregarRegistro extends AppCompatActivity {
      * funcion para crear registros
      */
     private void crearRegistro(){
-
+        aceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String k = kilometros.getText().toString();
+                String l = litros.getText().toString();
+                String d = dinero.getText().toString();
+                String f = fecha.getYear() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getDayOfMonth() + " 00:00";
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.US);
+                Date fe = sdf.parse(f, new ParsePosition(0));
+                if(k.equals("")){
+                    msg("Falta ingresar los kilometros recorridos");
+                }else if(l.equals("")){
+                    msg("Falta ingresar los litros comprados");
+                }else if(d.equals("")){
+                    msg("Falta ingresar el monto total de la compra");
+                }else{
+                    ObjRegistro registro = new ObjRegistro();
+                    registro.setObjCombustible(combustibles.get(comSeleccionada));
+                    registro.setRegDinero(Float.parseFloat(d));
+                    registro.setRegKmRecorridos(Float.parseFloat(k));
+                    registro.setRegLitros(Float.parseFloat(l));
+                    registro.setRegFecha(fe);
+                    String respuesta = db.insertRegistro(registro);
+                    if(respuesta.equals("1")){
+                        Intent i = new Intent(AgregarRegistro.this, MainActivity.class);
+                        i.putExtra("msg", "Se agrego correctamente el registro");
+                        startActivity(i);
+                        finish();
+                    }else{
+                        msg("Ocurrio un error, intente nuevamente");
+                        Log.e("Error al crear registro", respuesta);
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -97,8 +146,18 @@ public class AgregarRegistro extends AppCompatActivity {
      */
     private void cargarCombustibles(){
         combustibles = db.selectCombustibles();
-        Toast.makeText(getApplicationContext(), "" + combustibles.size(), Toast.LENGTH_SHORT).show();
         gasolinas.setAdapter(new AdapterSpinnerCombustibles(getApplicationContext(), combustibles));
+        gasolinas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                comSeleccionada = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     /**
@@ -142,5 +201,18 @@ public class AgregarRegistro extends AppCompatActivity {
                 drawerLayout.openDrawer(nav);
             }
         });
+    }
+
+    /**
+     * Funcion para crear un mensaje en pantalla
+     * @param msg
+     */
+    public void msg(String msg){
+        Snackbar.make(ventana, msg, Snackbar.LENGTH_SHORT).setAction("Aceptar", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        }).show();
     }
 }

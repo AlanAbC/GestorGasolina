@@ -8,7 +8,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/l_ventana">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -42,10 +43,10 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="52dp"
             android:padding="0dp"
             android:id="@+id/scrollView"
-            android:layout_below="@id/menu">
+            android:layout_below="@+id/menu"
+            android:layout_alignParentStart="true">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -54,7 +55,7 @@
 
                 <ListView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:id="@+id/listaRegistros"
                    />
 
