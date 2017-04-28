@@ -59,6 +59,9 @@ public class AcercaDe extends AppCompatActivity {
         nombreUsuario.setText(usuario.getUsuNombre());
     }
 
+    /**
+     * funcion que da funcionalidad al menu
+     */
     private void menuNav(){
         for(int i = 0; i < menu.size(); i++){
             items.add(menu.getItem(i));

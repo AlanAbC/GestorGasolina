@@ -9,21 +9,22 @@
     android:gravity="bottom">
 
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_gravity="top|right"
         android:scaleType="centerInside"
         android:id="@+id/editar"
-        android:padding="2dp"
+        android:padding="15dp"
         android:src="@drawable/edit"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="20sp"
+        android:layout_marginTop="15dp"
         android:text="USERNAME"
         android:id="@+id/menuNombreUsuario"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>

@@ -87,7 +87,9 @@
                         android:id="@+id/img"
                         android:layout_below="@id/input_layout_nombre"
                         android:layout_marginTop="25dp"
-                        android:background="#a0a0a0"/>
+                        android:background="#FAFAFA"
+                        android:src="@drawable/header_menu"
+                        android:scaleType="centerInside"/>
 
                     <Button
                         android:layout_width="match_parent"
