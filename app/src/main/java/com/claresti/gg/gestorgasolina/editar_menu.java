@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -36,6 +37,16 @@ public class editar_menu extends AppCompatActivity {
     private EditText nombre;
     private ImageView img;
     private Button selectImg;
+    private RelativeLayout ventana;
+    //Variables de directorio para subir imegen
+    private static String APP_DIRECTORY = "GestorGasolina/";
+    private static String MEDIA_DIRECTORY = APP_DIRECTORY + "img";
+    //Variables de permisos
+    private final int MY_PERMISSION = 100;
+    private final int PHOTO_CODE = 200;
+    private final int SELECT_PICTURE = 300;
+    //Variable para configurar el path
+    private String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +78,7 @@ public class editar_menu extends AppCompatActivity {
         nombre = (EditText)findViewById(R.id.nombreT);
         img = (ImageView)findViewById(R.id.img);
         selectImg = (Button)findViewById(R.id.btn_img);
+        ventana = (RelativeLayout)findViewById(R.id.principal);
         //Insercion de nombre actual e imagen actual
         nombre.setHint(usuario.getUsuNombre());
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);

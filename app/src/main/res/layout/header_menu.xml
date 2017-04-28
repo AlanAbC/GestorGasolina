@@ -19,6 +19,7 @@
         android:id="@+id/editar"
         android:padding="2dp"
         android:src="@drawable/edit"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
