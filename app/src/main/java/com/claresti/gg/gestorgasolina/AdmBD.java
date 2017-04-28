@@ -115,6 +115,19 @@ public class AdmBD extends SQLiteOpenHelper{
         }
     }
 
+    public String updateUsuarioImg(ObjUsuario usuario){
+        try{
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues v = new ContentValues();
+            v.put("usuNombre", usuario.getUsuNombre());
+            v.put("usuImg", usuario.getUsuImg());
+            db.update("Usuario", v, "usuPrimera = 1", null);
+            return "1";
+        }catch(Exception e){
+            return e.toString();
+        }
+    }
+
     /**
      * Funcion que regresa un Objeto de tipo usuario con la informacion de la base de datos
      * @return ObjUsuario usuario

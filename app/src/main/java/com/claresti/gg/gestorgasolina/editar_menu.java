@@ -4,8 +4,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaScannerConnection;
 import android.media.audiofx.BassBoost;
 import android.media.audiofx.EnvironmentalReverb;
@@ -21,6 +23,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -58,15 +61,17 @@ public class editar_menu extends AppCompatActivity {
     private ImageView img;
     private Button selectImg;
     private RelativeLayout ventana;
+    //Variables de objetos
+    private ObjUsuario usuario;
     //Variables de directorio para subir imegen
     private static String APP_DIRECTORY = "GestorGasolina/";
-    private static String MEDIA_DIRECTORY = APP_DIRECTORY + "img";
+    private static String MEDIA_DIRECTORY = APP_DIRECTORY + "Pictures";
     //Variables de permisos
     private final int MY_PERMISSION = 100;
     private final int PHOTO_CODE = 200;
     private final int SELECT_PICTURE = 300;
     //Variable para configurar el mPath
-    private String mPath;
+    private String mPath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +94,7 @@ public class editar_menu extends AppCompatActivity {
         //Codigo para crear el objeto de la base de datos y
         //agregar el nombre de usuario al menu
         db = new AdmBD(this);
-        ObjUsuario usuario = db.selectUsuario();
+        usuario = db.selectUsuario();
         //Codigo para poner en el Menu el nombre de usuario
         View header = nav.getHeaderView(0);
         TextView nombreUsuario = (TextView) header.findViewById(R.id.menuNombreUsuario);
@@ -115,6 +120,14 @@ public class editar_menu extends AppCompatActivity {
         //Insercion de nombre actual e imagen actual
         nombre.setHint(usuario.getUsuNombre());
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        //colocar imagen del usuario
+        if(usuario.getUsuImg().equals("imgmenu")){
+            img.setImageDrawable(getResources().getDrawable(R.drawable.header_menu));
+        }else{
+            File archivoImg = new File(usuario.getUsuImg());
+            Uri path = Uri.fromFile(archivoImg);
+            img.setImageURI(path);
+        }
     }
 
     /**
@@ -167,10 +180,13 @@ public class editar_menu extends AppCompatActivity {
         builder.show();
     }
 
+    /**
+     * Funcion para abrir la camara y tomar una foto
+     */
     private void abrirCamara() {
         File file = new File(Environment.getExternalStorageDirectory(), MEDIA_DIRECTORY);
         boolean isDirectoryCreated = file.exists();
-        if(isDirectoryCreated){
+        if(!isDirectoryCreated){
             isDirectoryCreated = file.mkdirs();
         }
         if(isDirectoryCreated){
@@ -179,29 +195,39 @@ public class editar_menu extends AppCompatActivity {
             mPath = Environment.getExternalStorageDirectory() + File.separator + MEDIA_DIRECTORY + File.separator + imgeName;
             File newFile = new File(mPath);
             Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(newFile));
+            i.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile (editar_menu.this, getApplicationContext().getPackageName() + ".provider", newFile));
             startActivityForResult(i, PHOTO_CODE);
         }
     }
 
+    /**
+     * Funcion para guardar un parametro cuando finaliza la aplicacion
+     */
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
         outState.putString("file_path", mPath);
     }
 
+    /**
+     * Funcion para recuperar un parametros cuando finaliza la palicacion
+     */
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mPath = savedInstanceState.getString("file_path");
     }
 
+    /**
+     * Funcion para trabajar con el resultado de los intents
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RESULT_OK){
+        if(resultCode == RESULT_OK){
             switch (requestCode){
                 case PHOTO_CODE:
+                    /*
                     MediaScannerConnection.scanFile(this, new String[]{mPath}, null, new MediaScannerConnection.OnScanCompletedListener() {
                         @Override
                         public void onScanCompleted(String path, Uri uri) {
@@ -211,15 +237,23 @@ public class editar_menu extends AppCompatActivity {
                     });
                     Bitmap bitmap = BitmapFactory.decodeFile(mPath);
                     img.setImageBitmap(bitmap);
+                    */
+                    Uri path1 = Uri.fromFile(new File(mPath));
+                    img.setImageURI(path1);
+                    Log.i("URL", "Uri = " + mPath);
                     break;
                 case SELECT_PICTURE:
-                    Uri path = data.getData();
-                    img.setImageURI(path);
+                    Uri path2 = data.getData();
+                    mPath = getRealPathFromURI(path2);
+                    img.setImageURI(path2);
                     break;
             }
         }
     }
 
+    /**+
+     * Funcion que muestra los permisos
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -233,6 +267,9 @@ public class editar_menu extends AppCompatActivity {
         }
     }
 
+    /**
+     * funcion que muestra una explicacion de los permisos
+     */
     private void showExplanation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(editar_menu.this);
         builder.setTitle("Permisos denegados");
@@ -261,7 +298,54 @@ public class editar_menu extends AppCompatActivity {
      * @param v
      */
     public void actualizar(View v){
-
+        if(nombre.getText().toString().isEmpty() && mPath.isEmpty()){
+            msg("No hay cambios que realizar");
+        }else{
+            if(nombre.getText().toString().isEmpty() && !mPath.isEmpty()){
+                ObjUsuario usuarioAct = new ObjUsuario();
+                usuarioAct.setUsuNombre(usuario.getUsuNombre());
+                usuarioAct.setUsuImg(mPath);
+                String respuesta = db.updateUsuarioImg(usuarioAct);
+                if(respuesta.equals("1")){
+                    Intent i = new Intent(editar_menu.this, MainActivity.class);
+                    i.putExtra("msg", "Se actualizo correctamente");
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+                    finish();
+                }else{
+                    msg("Ocurrio el error: " + respuesta);
+                }
+            }else if(!nombre.getText().toString().isEmpty() && mPath.isEmpty()){
+                ObjUsuario usuarioAct = new ObjUsuario();
+                usuarioAct.setUsuNombre(nombre.getText().toString());
+                usuarioAct.setUsuImg(usuario.getUsuImg());
+                String respuesta = db.updateUsuarioImg(usuarioAct);
+                if(respuesta.equals("1")){
+                    Intent i = new Intent(editar_menu.this, MainActivity.class);
+                    i.putExtra("msg", "Se actualizo correctamente");
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+                    finish();
+                }else{
+                    msg("Ocurrio el error: " + respuesta);
+                }
+            }else if(!nombre.getText().toString().isEmpty() && !mPath.isEmpty()) {
+                ObjUsuario usuarioAct = new ObjUsuario();
+                usuarioAct.setUsuNombre(nombre.getText().toString());
+                usuarioAct.setUsuImg(mPath);
+                String respuesta = db.updateUsuarioImg(usuarioAct);
+                if (respuesta.equals("1")) {
+                    Intent i = new Intent(editar_menu.this, MainActivity.class);
+                    i.putExtra("msg", "Se actualizo correctamente");
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+                    finish();
+                } else {
+                    msg("Ocurrio el error: " + respuesta);
+                }
+            }
+            msg("No funciono, disculpeme :(");
+        }
     }
 
     /**
@@ -322,4 +406,12 @@ public class editar_menu extends AppCompatActivity {
             }
         }).show();
     }
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
+
 }

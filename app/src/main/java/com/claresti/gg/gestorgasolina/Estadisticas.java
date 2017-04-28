@@ -1,6 +1,10 @@
 package com.claresti.gg.gestorgasolina;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -14,8 +18,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +35,8 @@ public class Estadisticas extends AppCompatActivity {
     private NavigationView nav;
     //Variable base de datos
     private AdmBD db;
+    //Variables de objetos
+    private ObjUsuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +54,13 @@ public class Estadisticas extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);
         nav = (NavigationView)findViewById(R.id.navigation);
         menu = nav.getMenu();
-        menuNav();
         // Fin menu
         //Iniciacion de la base de datos
         db = new AdmBD(this);
         //Codigo para agregar el nombre de usuario al menu
-        ObjUsuario usuario = db.selectUsuario();
+        usuario = db.selectUsuario();
+        //Llama funcion menuNav
+        menuNav();
         //Codigo para poner en el Menu el nombre de usuario
         View header = nav.getHeaderView(0);
         TextView nombreUsuario = (TextView) header.findViewById(R.id.menuNombreUsuario);
@@ -93,6 +102,15 @@ public class Estadisticas extends AppCompatActivity {
         //Bloque de codigo que da funcionalidad al boton de editar del header del menu
         View headerview = nav.getHeaderView(0);
         ImageView editar = (ImageView)headerview.findViewById(R.id.editar);
+        RelativeLayout imgFondo = (RelativeLayout)headerview.findViewById(R.id.l_imgFondo);
+        if(usuario.getUsuImg().equals("imgmenu")){
+            imgFondo.setBackgroundResource(R.drawable.header_menu);
+        }else{
+            Uri path = Uri.fromFile(new File(usuario.getUsuImg()));
+            Bitmap bitmap = BitmapFactory.decodeFile(usuario.getUsuImg());
+            BitmapDrawable bdrawable = new BitmapDrawable(getApplicationContext().getResources(),bitmap);
+            imgFondo.setBackground(bdrawable);
+        }
         editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

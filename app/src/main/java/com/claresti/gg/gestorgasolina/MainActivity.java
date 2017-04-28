@@ -1,7 +1,12 @@
 package com.claresti.gg.gestorgasolina;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -22,6 +27,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView listaRegistros;
     //Variables de objetos
     private ArrayList<ObjRegistro> registros;
+    private ObjUsuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);
         nav = (NavigationView)findViewById(R.id.navigation);
         menu = nav.getMenu();
-        menuNav();
         //Asignacion de variables del layout
         ventana = (RelativeLayout)findViewById(R.id.l_ventana);
         listaRegistros = (ListView)findViewById(R.id.listaRegistros);
@@ -66,8 +72,9 @@ public class MainActivity extends AppCompatActivity {
         //Creacion del objeto usuario y comprobacion de primera ves o no en el sistemaa
         //cambia el nombre de la base de datos y el valor de usuPrimera a 1 en caso de que sea la primera vez
         //en caso contrario solo agrega nombre del usuario al menu y carga las tareas
-        ObjUsuario usuario = db.selectUsuario();
+        usuario = db.selectUsuario();
         if(usuario.getUsuPrimera() == 0){
+            menuNav();
             //Creacion de la ventana de inicio
             final RelativeLayout inicio = (RelativeLayout)findViewById(R.id.lPrimeraVez);
             inicio.setVisibility(View.VISIBLE);
@@ -92,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }else {
+            menuNav();
             //Codigo para poner en el Menu el nombre de usuario
             View header = nav.getHeaderView(0);
             TextView nombreUsuario = (TextView) header.findViewById(R.id.menuNombreUsuario);
@@ -158,6 +166,15 @@ public class MainActivity extends AppCompatActivity {
         //Bloque de codigo que da funcionalidad al boton de editar del header del menu
         View headerview = nav.getHeaderView(0);
         ImageView editar = (ImageView)headerview.findViewById(R.id.editar);
+        RelativeLayout imgFondo = (RelativeLayout)headerview.findViewById(R.id.l_imgFondo);
+        if(usuario.getUsuImg().equals("imgmenu")){
+            imgFondo.setBackgroundResource(R.drawable.header_menu);
+        }else{
+            Uri path = Uri.fromFile(new File(usuario.getUsuImg()));
+            Bitmap bitmap = BitmapFactory.decodeFile(usuario.getUsuImg());
+            BitmapDrawable bdrawable = new BitmapDrawable(getApplicationContext().getResources(),bitmap);
+            imgFondo.setBackground(bdrawable);
+        }
         editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
