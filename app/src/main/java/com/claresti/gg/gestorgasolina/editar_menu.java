@@ -89,16 +89,26 @@ public class editar_menu extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.dLayout);
         nav = (NavigationView)findViewById(R.id.navigation);
         menu = nav.getMenu();
-        menuNav();
         // Fin menu
         //Codigo para crear el objeto de la base de datos y
         //agregar el nombre de usuario al menu
         db = new AdmBD(this);
         usuario = db.selectUsuario();
+        //Funcion para dar funcionalidad al menu
+        menuNav();
         //Codigo para poner en el Menu el nombre de usuario
         View header = nav.getHeaderView(0);
         TextView nombreUsuario = (TextView) header.findViewById(R.id.menuNombreUsuario);
         nombreUsuario.setText(usuario.getUsuNombre());
+        RelativeLayout imgFondo = (RelativeLayout)header.findViewById(R.id.l_imgFondo);
+        if(usuario.getUsuImg().equals("imgmenu")){
+            imgFondo.setBackgroundResource(R.drawable.header_menu);
+        }else{
+            Uri pathImg = Uri.fromFile(new File(usuario.getUsuImg()));
+            Bitmap bitmap = BitmapFactory.decodeFile(usuario.getUsuImg());
+            BitmapDrawable bdrawable = new BitmapDrawable(getApplicationContext().getResources(),bitmap);
+            imgFondo.setBackground(bdrawable);
+        }
         //Asignacion de variables del layout
         nombre = (EditText)findViewById(R.id.nombreT);
         img = (ImageView)findViewById(R.id.img);
